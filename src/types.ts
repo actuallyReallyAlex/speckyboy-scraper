@@ -10,10 +10,11 @@ export interface AppState {
   menuActionEmitter: EventEmitter.EventEmitter;
 }
 
-export type MenuAction =
-  | "about"
-  | "exit"
-  | "option1"
-  | "option2"
-  | "option3"
-  | null;
+export interface Article {
+  description: string | undefined;
+  imageUrl: string | undefined;
+  title: string | undefined;
+  url: string | undefined;
+}
+
+export type MenuAction = "about" | "exit" | "scrape" | null;

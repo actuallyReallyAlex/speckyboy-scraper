@@ -2,6 +2,8 @@ import boxen from "boxen";
 import chalk from "chalk";
 import inquirer from "inquirer";
 
+import scrape from "./commands/scrape";
+
 import { blankBoxenStyle } from "./constants";
 import { titleScreen } from "./util";
 
@@ -21,9 +23,7 @@ export const displayMainMenu = (state: AppState): Promise<MenuAction> =>
           message: "Main Menu",
           name: "menuAction",
           choices: [
-            { value: "option1", name: "Option 1" },
-            { value: "option2", name: "Option 2" },
-            { value: "option3", name: "Option 3" },
+            { value: "scrape", name: "Scrape" },
             new inquirer.Separator(),
             { value: "about", name: "About" },
             { value: "exit", name: "Exit" },
@@ -75,38 +75,17 @@ export const interpretMenuAction = async (state: AppState): Promise<void> => {
       about: async (state: AppState): Promise<void> => {
         await titleScreen("speckyboy-scraper");
         console.log(
-          boxen(
-            chalk.blueBright(`Author: `) + "Alex Lee",
-            blankBoxenStyle
-          )
+          boxen(chalk.blueBright(`Author: `) + "Alex Lee", blankBoxenStyle)
         );
 
         console.log("Press any key to return to Main Menu ...");
         await keypress();
         state.menuActionEmitter.emit("actionCompleted", state);
       },
-      option1: async (state: AppState): Promise<void> => {
+      scrape: async (state: AppState): Promise<void> => {
         await titleScreen("speckyboy-scraper");
-        console.log("Option 1 Logic would take place here :)");
-        console.log("");
 
-        console.log("Press any key to return to Main Menu ...");
-        await keypress();
-        state.menuActionEmitter.emit("actionCompleted", state);
-      },
-      option2: async (state: AppState): Promise<void> => {
-        await titleScreen("speckyboy-scraper");
-        console.log("Option 2 Logic would take place here :)");
-        console.log("");
-
-        console.log("Press any key to return to Main Menu ...");
-        await keypress();
-        state.menuActionEmitter.emit("actionCompleted", state);
-      },
-      option3: async (state: AppState): Promise<void> => {
-        await titleScreen("speckyboy-scraper");
-        console.log("Option 3 Logic would take place here :)");
-        console.log("");
+        await scrape();
 
         console.log("Press any key to return to Main Menu ...");
         await keypress();
